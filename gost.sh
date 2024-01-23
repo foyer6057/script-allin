@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# "cat" "test.json" | grep -oP '\K[^"v]+'
-
 LATEST_VERSION=""
 
 get_latest_version() {
