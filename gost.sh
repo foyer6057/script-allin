@@ -60,8 +60,8 @@ EOF
 main() {
     get_latest_version
     download_gost
-    # write_startup_file
-    # add_configuration
+    write_startup_file
+    add_configuration
 }
 
 main
