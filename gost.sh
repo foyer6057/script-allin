@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# "cat" "test.json" | grep -oP '\K[^"v]+'
+
 LATEST_VERSION=""
 
 get_latest_version() {
@@ -12,10 +14,14 @@ get_latest_version() {
 
 download_gost() {
     local temp_dir="$(mktemp -d)"
+    cpu_info="$(cat "/proc/cpuinfo" | grep -oP 'model name\s+: \K.*' | head -n 1 | grep  -io 'v2')"
     local download_url="https://github.com/go-gost/gost/releases/download/v${LATEST_VERSION}/gost_${LATEST_VERSION}_linux_amd64v3.tar.gz"
+    if [[ -n ${cpu_info} ]]; then
+        download_url="https://github.com/go-gost/gost/releases/download/v${LATEST_VERSION}/gost_${LATEST_VERSION}_linux_amd64.tar.gz"
+    fi
     curl -sSL -o "${temp_dir}/gost.tar.gz" "$download_url"
     tar xzvf "${temp_dir}/gost.tar.gz" -C "${temp_dir}"
-    mv "${temp_dir}/gost" /usr/bin
+    mv "${temp_dir}/gost" /home
     rm -rf "${temp_dir}"
 }
 
@@ -37,7 +43,7 @@ EOF
 }
 
 add_configuration() {
-    mkdir -p /etc/gost
+    mkdir -p "/etc/gost"
     cat << EOF > /etc/gost/gost.yaml
 services:
   - name: local
@@ -56,8 +62,8 @@ EOF
 main() {
     get_latest_version
     download_gost
-    write_startup_file
-    add_configuration
+    # write_startup_file
+    # add_configuration
 }
 
 main
