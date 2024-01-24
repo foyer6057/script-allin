@@ -43,12 +43,12 @@ dns:
 
 listeners:
     - name: ss-in
-        type: shadowsocks
-        port: $port
-        listen: 0.0.0.0
-        cipher: 2022-blake3-chacha20-poly1305
-        password: $pwd
-        udp: false
+      type: shadowsocks
+      port: $port
+      listen: 0.0.0.0
+      cipher: 2022-blake3-chacha20-poly1305
+      password: $pwd
+      udp: false
 
 proxies:
 
