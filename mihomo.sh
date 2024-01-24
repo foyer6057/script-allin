@@ -76,8 +76,8 @@ install_mihomo() {
 }
 
 main() {
-    # add_startup
-    # add_configuration
+    add_startup
+    add_configuration
     install_mihomo
 }
 
